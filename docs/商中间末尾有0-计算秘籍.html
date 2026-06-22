@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>商中间、末尾有 0 · 计算秘籍</title>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="计算秘籍">
+<meta name="theme-color" content="#ff9ec4">
+<link rel="manifest" href="site.webmanifest">
+<style>
+  @page { size: A4; margin: 14mm 14mm 12mm; }
+
+  :root{
+    --ink:#1f2937; --soft:#475569; --line:#d8dee9;
+    --amber-bg:#fff7e6; --amber-bd:#f59e0b; --amber-tx:#92400e;
+    --blue-bg:#eef5ff; --blue-bd:#3b82f6; --blue-tx:#1e40af;
+    --green-bg:#eefbf2; --green-bd:#22c55e; --green-tx:#166534;
+    --rose-bg:#fff1f2; --rose-bd:#fb7185; --rose-tx:#9f1239;
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; }
+  body{
+    font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;
+    color:var(--ink); line-height:1.55; font-size:15px;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+    background:#fff;
+  }
+  .sheet{ max-width:690px; margin:0 auto; padding:6px 4px 24px; }
+
+  /* 返回首页（打印时隐藏） */
+  .back{ display:inline-flex; align-items:center; gap:5px; text-decoration:none;
+    color:#1e40af; background:#eef5ff; border:1px solid #d6e4ff; border-radius:999px;
+    padding:5px 14px; font-size:13px; margin-bottom:12px; transition:.15s; }
+  .back:hover{ background:#dbeafe; }
+
+  /* 标题 */
+  .title{ display:flex; align-items:flex-end; justify-content:space-between;
+    border-bottom:3px solid var(--ink); padding-bottom:8px; margin-bottom:14px; gap:12px; }
+  .title h1{ font-size:25px; margin:0; letter-spacing:1px; }
+  .title .tag{ font-size:13px; color:var(--soft); white-space:nowrap; padding-bottom:3px; }
+
+  h2{ font-size:17px; margin:18px 0 8px; display:flex; align-items:center; gap:8px; }
+  h2 .dot{ width:10px; height:10px; border-radius:50%; background:var(--blue-bd); display:inline-block; }
+
+  /* 秘籍主框 */
+  .hero{ background:var(--amber-bg); border:2px solid var(--amber-bd); border-radius:14px;
+    padding:16px 18px; text-align:center; }
+  .hero .label{ color:var(--amber-tx); font-weight:700; font-size:14px; letter-spacing:3px; }
+  .formula{ font-size:25px; font-weight:800; color:var(--amber-tx); margin:10px 0 6px; }
+  .formula b{ color:#b45309; }
+  .hero .note{ font-size:13px; color:var(--soft); }
+
+  .card{ border:1.5px solid var(--line); border-radius:12px; padding:12px 15px; margin-top:10px; }
+  .card.blue{ background:var(--blue-bg); border-color:#bcd6fb; }
+  .card.green{ background:var(--green-bg); border-color:#bbe9c8; }
+  .card.rose{ background:var(--rose-bg); border-color:#fbcfd4; }
+  .card .h{ font-weight:700; margin-bottom:4px; }
+  .card.blue .h{ color:var(--blue-tx); }
+  .card.green .h{ color:var(--green-tx); }
+  .card.rose .h{ color:var(--rose-tx); }
+
+  .steps{ margin:0; padding-left:0; list-style:none; }
+  .steps li{ margin:6px 0; padding-left:26px; position:relative; }
+  .steps li::before{ content:attr(data-n); position:absolute; left:0; top:0;
+    width:19px; height:19px; border-radius:50%; background:var(--blue-bd); color:#fff;
+    font-size:12px; font-weight:700; text-align:center; line-height:19px; }
+  .steps.gn li::before{ background:var(--green-bd); }
+  .calc{ font-weight:700; color:#0f766e; }
+  .ans{ display:inline-block; background:#fde68a; border-radius:6px; padding:0 8px; font-weight:800; color:#92400e; }
+
+  /* 商的数位盒子 */
+  .qrow{ display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; margin:10px 0 4px; }
+  .qrow .lead{ font-size:18px; font-weight:700; color:var(--soft); }
+  .digits{ display:inline-flex; gap:6px; }
+  .digits .d{ width:34px; height:44px; border:1.5px solid var(--line); border-radius:8px;
+    display:flex; align-items:center; justify-content:center; font-size:25px; font-weight:800; background:#fff; }
+  .digits .d.zero{ background:#fde68a; border-color:var(--amber-bd); color:#b45309; }
+  .qcap{ text-align:center; font-size:13px; color:var(--soft); margin-top:2px; }
+  .qcap b{ color:var(--amber-tx); }
+
+  .practice ol{ padding-left:22px; margin:6px 0; }
+  .practice li{ margin:9px 0; }
+  .blank{ display:inline-block; min-width:88px; border-bottom:1.5px solid #94a3b8; height:1em; }
+  .answers{ font-size:12.5px; color:var(--soft); border-top:1px dashed var(--line); margin-top:14px; padding-top:8px;
+    transform:rotate(180deg); }
+  .answers div{ margin:3px 0; }
+
+  .tip{ font-size:13px; color:var(--soft); margin-top:4px; }
+  .pagebreak{ break-before:page; }
+  section{ break-inside:avoid; }
+  @media print{ .screen-only{ display:none; } }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <a class="back screen-only" href="index.html">‹ 返回秘籍本</a>
+
+  <div class="title">
+    <h1>商中间、末尾有 0 · 计算秘籍</h1>
+    <div class="tag">三年级下册 · 除法竖式</div>
+  </div>
+
+  <section class="hero">
+    <div class="label">计 算 秘 籍</div>
+    <div class="formula">哪一位「不够除」，商就在那位写 <b>0</b></div>
+    <div class="note">把这一位的数和除数比一比——比除数 <b>小</b> 就是「不够除」，商写 <b>0</b> 占位，再接着往下除。</div>
+  </section>
+
+  <section>
+    <h2><span class="dot"></span>为什么不够除要写 0 ？（分糖故事）</h2>
+    <div class="card blue">
+      <div class="h">🍬 把 812 颗糖，平均分给 4 个小朋友</div>
+      糖分成三种：<b>100 颗一堆、10 颗一捆、1 颗散的</b>，从大往小分。<br>
+      • <b>百位</b>：8 堆（800 颗）分给 4 人，每人 <b>2</b> 堆，正好分完 → 商百位 <b>2</b>。<br>
+      • <b>十位</b>：只有 <b>1</b> 捆，4 个人，<b>1 捆不够每人分 1 捆（不够除）</b> → 每人 <b>0</b> 捆 → 商十位写 <b>0</b>！把这 1 捆拆成 10 颗。<br>
+      • <b>个位</b>：原来 2 颗 ＋ 拆开的 10 颗 ＝ <b>12</b> 颗，分给 4 人，每人 <b>3</b> 颗 → 商个位 <b>3</b>。<br>
+      每人分到 2 堆 0 捆 3 颗，也就是 <span class="calc">812 ÷ 4 ＝ 203</span>。中间的 <b>0</b> 表示「十位上每人分到 0 捆」，<b>必须写，不能跳过！</b>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="dot" style="background:#a855f7"></span>看懂两种「0」长在哪里</h2>
+    <div class="card">
+      <div class="qrow">
+        <span class="lead">812 ÷ 4 ＝</span>
+        <span class="digits"><span class="d">2</span><span class="d zero">0</span><span class="d">3</span></span>
+      </div>
+      <div class="qcap"><b>商中间有 0</b>：是 <b>中间那一位</b>（十位）不够除</div>
+      <div class="qrow" style="margin-top:14px;">
+        <span class="lead">842 ÷ 4 ＝</span>
+        <span class="digits"><span class="d">2</span><span class="d">1</span><span class="d zero">0</span></span>
+        <span class="lead" style="font-size:15px;">…… 余 2</span>
+      </div>
+      <div class="qcap"><b>商末尾有 0</b>：是 <b>最后一位</b>（个位）不够除</div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="dot" style="background:var(--green-bd)"></span>真题①：8□2÷4，商中间有 0 且没有余数</h2>
+    <div class="card green">
+      <ul class="steps gn">
+        <li data-n="1"><b>百位：</b><span class="calc">8 ÷ 4 ＝ 2</span>，正好分完没剩。</li>
+        <li data-n="2"><b>要商中间（十位）是 0：</b>就要十位的 □「不够除 4」 → <b>□ 比 4 小</b> → □ 可以是 0、1、2、3。</li>
+        <li data-n="3"><b>再加「没有余数」：</b>把这几个一个个试除，挑能除尽的 → <span class="calc">812÷4＝203</span> ✓、<span class="calc">832÷4＝208</span> ✓。（802、822 都余 2，划掉）</li>
+        <li data-n="4">所以 □ 填 <span class="ans">1 或 3</span>。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="dot" style="background:var(--green-bd)"></span>真题②：8□2÷4，商末尾有 0</h2>
+    <div class="card green">
+      <ul class="steps gn">
+        <li data-n="1"><b>要商末尾（个位）是 0：</b>就要个位「不够除 4」。</li>
+        <li data-n="2"><b>个位本来是 2</b>（比 4 小），但前提是 <b>十位要先除尽、别留余数下来</b>——不然余数带到个位，个位就够除了。</li>
+        <li data-n="3"><b>所以十位 □÷4 要正好除尽</b> → □ 是 <b>4 的倍数</b> → □ ＝ 0、4、8。</li>
+        <li data-n="4">验证：<span class="calc">802÷4＝200…2</span>、<span class="calc">842÷4＝210…2</span>、<span class="calc">882÷4＝220…2</span>，商末尾都是 0。所以 □ 填 <span class="ans">0、4、8</span>。</li>
+      </ul>
+      <div class="tip">💡 这一问只要求「商末尾有 0」，<b>没要求没有余数</b>，所以三个答案虽然都余 2，也都算对。</div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="dot" style="background:var(--rose-bd)"></span>易错点（最容易丢分的地方）</h2>
+    <div class="card rose">
+      <div class="h">⚠️ 不够除时，0 千万不能漏！</div>
+      • 不够除时 <b>0 要写在商里占位</b>，绝不能跳过 —— 漏了 203 就会写成 23，整道全错。<br>
+      • 分清两种：「商<b>中间</b>有 0」看 <b>中间</b>那位够不够除；「商<b>末尾</b>有 0」看 <b>个位</b>够不够除。<br>
+      • 看清题目要不要「没有余数」：要，就得在候选里挑能除尽的；不要，有余数也可以。<br>
+      <div class="tip">✅ 检验秘籍：<b>商 × 除数 ＋ 余数 ＝ 被除数</b>。如 203×4＝812 ✓；210×4＋2＝842 ✓。</div>
+    </div>
+  </section>
+
+  <section class="practice pagebreak">
+    <h2><span class="dot"></span>练一练（先想：让哪一位「不够除」）</h2>
+    <ol>
+      <li>计算 6□4÷6，要使商中间有 0，□里可以填 <span class="blank"></span> 。</li>
+      <li>计算 9□5÷9，要使商末尾有 0，□里可以填 <span class="blank"></span> 。</li>
+      <li>计算 8□0÷4，要使商中间有 0 且没有余数，□里可以填 <span class="blank"></span> 。</li>
+      <li>808÷4 ＝ <span class="blank"></span> ；780÷6 ＝ <span class="blank"></span> 。<span class="tip">（算一算，看看 0 长在哪）</span></li>
+    </ol>
+    <div class="answers">
+      <b>参考答案：</b>
+      <div>① 6÷6＝1 正好；要十位商 0 就让 □ 比 6 小 → □ ＝ <b>0、1、2、3、4、5</b>。（如 604÷6＝100…4，商中间是 0）</div>
+      <div>② 要个位商 0，就让十位除尽 → □ 是 9 的倍数 → □ ＝ <b>0、9</b>。（905÷9＝100…5、995÷9＝110…5）</div>
+      <div>③ 十位 □ 比 4 小才会商中间 0，再挑能除尽的 → □ ＝ <b>0、2</b>。（800÷4＝200、820÷4＝205）</div>
+      <div>④ 808÷4＝<b>202</b>（商中间有 0）；780÷6＝<b>130</b>（商末尾有 0）。</div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
