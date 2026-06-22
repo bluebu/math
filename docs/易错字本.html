@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>易错字本 · 数学答题生字</title>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="计算秘籍">
+<meta name="theme-color" content="#ff9ec4">
+<link rel="manifest" href="site.webmanifest">
+<style>
+  @page { size: A4; margin: 14mm 14mm 12mm; }
+
+  :root{
+    --ink:#1f2937; --soft:#475569; --line:#d8dee9;
+    --pink-bg:#fff1f6; --pink-bd:#f9a8d4; --pink-tx:#be185d;
+    --amber-bg:#fff7e6; --amber-bd:#f59e0b; --amber-tx:#92400e;
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; }
+  body{
+    font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;
+    color:var(--ink); line-height:1.55; font-size:15px;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+    background:#fff;
+  }
+  .sheet{ max-width:690px; margin:0 auto; padding:6px 4px 24px; }
+
+  .back{ display:inline-flex; align-items:center; gap:5px; text-decoration:none;
+    color:#1e40af; background:#eef5ff; border:1px solid #d6e4ff; border-radius:999px;
+    padding:5px 14px; font-size:13px; margin-bottom:12px; transition:.15s; }
+  .back:hover{ background:#dbeafe; }
+
+  .title{ display:flex; align-items:flex-end; justify-content:space-between;
+    border-bottom:3px solid var(--pink-bd); padding-bottom:8px; margin-bottom:6px; gap:12px; }
+  .title h1{ font-size:25px; margin:0; letter-spacing:1px; }
+  .title .tag{ font-size:13px; color:var(--soft); white-space:nowrap; padding-bottom:3px; }
+  .intro{ font-size:13px; color:var(--soft); margin:6px 0 4px; }
+
+  /* 一个字一块 */
+  .zi{ border:1.5px solid #fbcfe0; border-radius:14px; padding:14px 16px; margin-top:14px; background:#fffafc; }
+  .zi .top{ display:flex; align-items:center; gap:16px; flex-wrap:wrap; }
+  .zi .info{ min-width:0; }
+  .zi .info .py{ color:var(--pink-tx); font-weight:800; font-size:17px; letter-spacing:1px; }
+  .zi .info .word{ font-size:14px; color:var(--soft); margin-top:3px; }
+  .zi .info .word b{ color:var(--ink); }
+  .zi .warn{ margin-top:11px; background:var(--amber-bg); border:1px solid #fde2a8; border-radius:10px;
+    padding:8px 12px; font-size:13.5px; color:#7c5310; }
+  .zi .warn b{ color:var(--amber-tx); }
+  .zi .plabel{ font-size:12.5px; color:var(--soft); margin:12px 0 6px; }
+
+  /* 田字格 */
+  .gridrow{ display:flex; gap:8px; flex-wrap:wrap; }
+  .tian{ position:relative; width:58px; height:58px; flex:0 0 auto;
+    border:1.6px solid var(--pink-bd); background:#fff; }
+  .tian::before{ content:""; position:absolute; left:50%; top:0; bottom:0;
+    border-left:1px dashed #f3b6cf; transform:translateX(-50%); }
+  .tian::after{ content:""; position:absolute; top:50%; left:0; right:0;
+    border-top:1px dashed #f3b6cf; transform:translateY(-50%); }
+  .tian.show{ display:flex; align-items:center; justify-content:center; }
+  .tian.show span{ position:relative; z-index:1; font-size:38px; font-weight:700; line-height:1; }
+  .tian.faint span{ color:#f3b6cf; }   /* 描红：浅色字，照着描 */
+
+  footer{ color:#cbd5e1; font-size:12px; text-align:center; margin-top:30px; }
+  section{ break-inside:avoid; }
+  @media print{ .screen-only{ display:none; } }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <a class="back screen-only" href="index.html">‹ 返回秘籍本</a>
+
+  <div class="title">
+    <h1>📝 易错字本</h1>
+    <div class="tag">数学答题 · 常用字</div>
+  </div>
+  <div class="intro">把答题里 <b>不会写、容易写错</b> 的字记在这儿：第 1 格是正字，第 2 格浅色描红，后面几格自己写一写。</div>
+
+  <!-- ===== 一个字 = 一个 <section class="zi"> ===== -->
+  <section class="zi">
+    <div class="top">
+      <div class="tian show"><span>总</span></div>
+      <div class="info">
+        <div class="py">zǒng</div>
+        <div class="word">组词：<b>总共</b> · <b>一共</b> · 总数 · 总和（答“一共/总共……”时常用）</div>
+      </div>
+    </div>
+    <div class="warn">⚠️ 上面是两点「<b>丷</b>」，不要写成「八」；下面是「<b>心</b>」字底，三点和卧钩别丢。</div>
+    <div class="plabel">练一练：</div>
+    <div class="gridrow">
+      <div class="tian show faint"><span>总</span></div>
+      <div class="tian"></div><div class="tian"></div><div class="tian"></div>
+      <div class="tian"></div><div class="tian"></div>
+    </div>
+  </section>
+
+  <section class="zi">
+    <div class="top">
+      <div class="tian show"><span>被</span></div>
+      <div class="info">
+        <div class="py">bèi</div>
+        <div class="word">组词：<b>被除数</b> · <b>被减数</b>（“谁被分、谁被减”里的那个数）</div>
+      </div>
+    </div>
+    <div class="warn">⚠️ 左边是「<b>衤</b>」衣字旁（5 笔，右下有 <b>撇+点两点</b>），<b>不是</b>「礻」示字旁（4 笔，只一点）！右边是「皮」。</div>
+    <div class="plabel">练一练：</div>
+    <div class="gridrow">
+      <div class="tian show faint"><span>被</span></div>
+      <div class="tian"></div><div class="tian"></div><div class="tian"></div>
+      <div class="tian"></div><div class="tian"></div>
+    </div>
+  </section>
+
+  <!-- 复制上面整段 <section class="zi">…</section> 即可新增一个字：
+       · 田字格大字、拼音 py、组词 word、易错提醒 warn 各自改掉
+       · 描红格里的字（faint）也要同步改成新字 -->
+
+  <footer>遇到一个不会写的，就描进来一个 ✦</footer>
+
+</div>
+</body>
+</html>

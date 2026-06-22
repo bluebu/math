@@ -52,6 +52,15 @@
   .arrow{ color:#cbd5e1; font-size:22px; flex:0 0 auto; margin-left:2px; }
   .card:hover .arrow{ color:var(--blue); }
 
+  /* 固定入口：易错字本（不在秘籍列表里，不参与排序/计数） */
+  .pinned{ margin-bottom:20px; border-color:#fbcfe0; background:#fff5f9; }
+  .pinned .icon{ background:#ffe4ef; border-color:#fbb6ce; }
+  .pinned .body .formula{ color:#be185d; }
+  .pinned:hover{ border-color:#f472b6; box-shadow:0 4px 16px rgba(244,114,182,.18); }
+  .pinned .tag{ color:#be185d; background:#ffe4ef; border-color:#fbcfe0; }
+  .pinned .arrow{ color:#f9a8d4; }
+  .pinned:hover .arrow{ color:#ec4899; }
+
   footer{ color:#94a3b8; font-size:12px; text-align:center; margin-top:34px; }
 </style>
 </head>
@@ -65,6 +74,19 @@
     </div>
   </header>
   <div class="count">已收录 <b id="n">0</b> 个秘籍 · 点击卡片打开讲义</div>
+
+  <!-- 固定入口：易错字本（独立于下面的秘籍列表，永远置顶） -->
+  <a class="card pinned" href="易错字本.html">
+    <div class="icon">📝</div>
+    <div class="body">
+      <div class="name">易错字本</div>
+      <div class="formula">答题里不会写、容易写错的字（带田字格）</div>
+    </div>
+    <div class="meta">
+      <span class="tag">常翻</span>
+    </div>
+    <div class="arrow">›</div>
+  </a>
 
   <div class="list" id="list">
 
