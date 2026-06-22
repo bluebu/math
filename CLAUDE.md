@@ -16,7 +16,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - `index.html` —— 秘籍本首页（秘籍列表，点击进入各讲义；含脚本按记录日期自动排序、统计数量）。
   - 各秘籍讲义，如 `求经过天数-计算秘籍.html`；每页顶部有「‹ 返回秘籍本」链接（`back screen-only`，打印时隐藏）。
   - `.nojekyll` —— 关闭 Jekyll，按原样发布。
-  - 站点图标：`favicon.svg`（粉色女孩头像，源文件）+ 由它渲染出的 `favicon-32.png`、`apple-touch-icon.png`(180)、`icon-192.png`、`icon-512.png`，以及 `site.webmanifest`（PWA / iPhone 添加到主屏幕）。改图标时改 `favicon.svg` 后用 Chrome 无头渲染 + `sips` 重新生成各 PNG。
+  - 站点图标（用户自备，直接引用）：`favicon.ico`(256，浏览器标签页) + `apple-touch-icon.png`(180，iPhone 添加到主屏幕) + `site.webmanifest`。如需换图标，替换这两个文件即可，不用脚本生成。
 - `原始题集/` —— ❌ **原始资料，不发布**。试卷 PDF；`53/` 是「5·3 全优卷 小学数学 三年级下册 RJ」，`期末模拟（一）…（五）.pdf` 为 5 份期末模拟卷（各 70 分钟、满分 100）。
 - `错题集/` —— ❌ **原始资料，不发布**。做错题目的照片（JPG），文件名为数字编号（如 `317.JPG`）。
 
