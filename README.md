@@ -14,4 +14,4 @@
 
 ## 启用 GitHub Pages
 
-仓库 **Settings → Pages → Build and deployment**,Source 选 **Deploy from a branch**,Branch 选 `main`、文件夹选 **`/docs`**,保存。稍等片刻即可通过上面的链接访问。
+仓库 **Settings → Pages → Build and deployment**,Source 选 **Deploy from a branch**,Branch 选 `master`、文件夹选 **`/docs`**,保存。稍等片刻即可通过上面的链接访问。

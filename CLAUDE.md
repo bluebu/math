@@ -10,7 +10,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 目录结构与发布模型
 
-仓库 `git@github.com:bluebu/math.git`，站点 https://math.hi-ruby.com/ （自定义域名，由 `docs/CNAME` 记录；DNS 用 CNAME 指向 `bluebu.github.io`）。GitHub Pages 配置为「`main` 分支 / `docs` 文件夹」，因此**只有 `docs/` 会被发布**。
+仓库 `git@github.com:bluebu/math.git`，站点 https://math.hi-ruby.com/ （自定义域名，由 `docs/CNAME` 记录；DNS 用 CNAME 指向 `bluebu.github.io`）。GitHub Pages 配置为「`master` 分支 / `docs` 文件夹」，因此**只有 `docs/` 会被发布**。
 
 - `docs/` —— ✅ **发布内容**。
   - `index.html` —— 秘籍本首页（秘籍列表，点击进入各讲义；含脚本按记录日期自动排序、统计数量）。
