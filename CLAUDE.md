@@ -16,6 +16,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - `index.html` —— 秘籍本首页（秘籍列表，点击进入各讲义；含脚本按记录日期自动排序、统计数量）。
   - 各秘籍讲义，如 `求经过天数-计算秘籍.html`；每页顶部有「‹ 返回秘籍本」链接（`back screen-only`，打印时隐藏）。
   - `.nojekyll` —— 关闭 Jekyll，按原样发布。
+  - 站点图标：`favicon.svg`（粉色女孩头像，源文件）+ 由它渲染出的 `favicon-32.png`、`apple-touch-icon.png`(180)、`icon-192.png`、`icon-512.png`，以及 `site.webmanifest`（PWA / iPhone 添加到主屏幕）。改图标时改 `favicon.svg` 后用 Chrome 无头渲染 + `sips` 重新生成各 PNG。
 - `原始题集/` —— ❌ **原始资料，不发布**。试卷 PDF；`53/` 是「5·3 全优卷 小学数学 三年级下册 RJ」，`期末模拟（一）…（五）.pdf` 为 5 份期末模拟卷（各 70 分钟、满分 100）。
 - `错题集/` —— ❌ **原始资料，不发布**。做错题目的照片（JPG），文件名为数字编号（如 `317.JPG`）。
 
@@ -24,7 +25,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## 新建一个秘籍讲义
 
 1. 从 `原始题集` / `错题集` 的真题里确定题型与对应「秘籍」。
-2. 在 `docs/` 下新建讲义 HTML（A4 打印友好：`@page size:A4`、`print-color-adjust:exact`、系统中文字体；结构：秘籍公式框 + 生活化「为什么」 + 易错点 + 真题例题 + 小工具 + 练一练带答案；顶部加「‹ 返回秘籍本」`back screen-only` 链接）。
+2. 在 `docs/` 下新建讲义 HTML（A4 打印友好：`@page size:A4`、`print-color-adjust:exact`、系统中文字体；结构：秘籍公式框 + 生活化「为什么」 + 易错点 + 真题例题 + 小工具 + 练一练带答案；顶部加「‹ 返回秘籍本」`back screen-only` 链接；`<head>` 复制现有讲义的 favicon / apple-touch-icon / manifest 那组标签）。
 3. 在 `docs/index.html` 复制卡片模板新增一行（href、emoji、名称、公式、单元标签、记录日期 `data-date`）。
 4. 用 `open <文件>` 在浏览器预览。
 
