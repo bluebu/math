@@ -2,7 +2,7 @@
 
 给三年级孩子整理的数学「计算秘籍」讲义,一个秘籍一页,A4 打印友好。讲义根据真题(原始题集 / 错题集)整理而来。
 
-🔗 **在线浏览**(GitHub Pages):https://bluebu.github.io/math/
+🔗 **在线浏览**:https://math.hi-ruby.com/ (GitHub Pages 自定义域名)
 
 ## 目录结构
 
