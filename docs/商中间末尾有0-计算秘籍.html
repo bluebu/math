@@ -83,8 +83,11 @@
   .practice ol{ padding-left:22px; margin:6px 0; }
   .practice li{ margin:9px 0; }
   .blank{ display:inline-block; min-width:88px; border-bottom:1.5px solid #94a3b8; height:1em; }
-  .answers{ font-size:12.5px; color:var(--soft); border-top:1px dashed var(--line); margin-top:14px; padding-top:8px;
-    transform:rotate(180deg); }
+  /* 装订裁切线：把答案区与上面隔开（沿线对折/裁开核对） */
+  .cutline{ display:flex; align-items:center; gap:12px; margin:58px 0 18px; }
+  .cutline::before,.cutline::after{ content:""; flex:1 1 auto; border-top:2px dashed #cbd5e1; }
+  .cutline span{ white-space:nowrap; font-size:12px; color:#94a3b8; letter-spacing:2px; }
+  .answers{ font-size:12.5px; color:var(--soft); transform:rotate(180deg); }
   .answers div{ margin:3px 0; }
 
   .tip{ font-size:13px; color:var(--soft); margin-top:4px; }
@@ -182,6 +185,7 @@
       <li>计算 8□0÷4，要使商中间有 0 且没有余数，□里可以填 <span class="blank"></span> 。</li>
       <li>808÷4 ＝ <span class="blank"></span> ；780÷6 ＝ <span class="blank"></span> 。<span class="tip">（算一算，看看 0 长在哪）</span></li>
     </ol>
+    <div class="cutline"><span>✂ 答 案 区 · 倒 过 来 看 ✂</span></div>
     <div class="answers">
       <b>参考答案：</b>
       <div>① 6÷6＝1 正好；要十位商 0 就让 □ 比 6 小 → □ ＝ <b>0、1、2、3、4、5</b>。（如 604÷6＝100…4，商中间是 0）</div>

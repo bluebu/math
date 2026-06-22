@@ -78,8 +78,11 @@
   .practice ol{ padding-left:22px; margin:6px 0; }
   .practice li{ margin:9px 0; }
   .blank{ display:inline-block; min-width:64px; border-bottom:1.5px solid #94a3b8; height:1em; }
-  .answers{ font-size:12.5px; color:var(--soft); border-top:1px dashed var(--line); margin-top:14px; padding-top:8px;
-    transform:rotate(180deg); }
+  /* 装订裁切线：把答案区与上面隔开（沿线对折/裁开核对） */
+  .cutline{ display:flex; align-items:center; gap:12px; margin:58px 0 18px; }
+  .cutline::before,.cutline::after{ content:""; flex:1 1 auto; border-top:2px dashed #cbd5e1; }
+  .cutline span{ white-space:nowrap; font-size:12px; color:#94a3b8; letter-spacing:2px; }
+  .answers{ font-size:12.5px; color:var(--soft); transform:rotate(180deg); }
 
   .tip{ font-size:13px; color:var(--soft); margin-top:4px; }
   .pagebreak{ break-before:page; }
@@ -155,6 +158,7 @@
       <li>军军 7 月 28 日去外婆家，8 月 5 日回来，他在外婆家住了 <span class="blank"></span> 天。<span class="tip">（跨月，记得分段）</span></li>
       <li>暑假从 7 月 5 日开始，到 8 月 31 日结束，暑假一共有 <span class="blank"></span> 天。<span class="tip">（跨月）</span></li>
     </ol>
+    <div class="cutline"><span>✂ 答 案 区 · 倒 过 来 看 ✂</span></div>
     <div class="answers">
       <b>参考答案：</b>
       ① 20－8＋1＝<b>13</b> 天
