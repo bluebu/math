@@ -1,57 +1,48 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#ffc6df"/>
-      <stop offset="1" stop-color="#ff8ec1"/>
+    <linearGradient id="bg" x1="0.1" y1="0" x2="0.9" y2="1">
+      <stop offset="0" stop-color="#ffb0d6"/>
+      <stop offset="1" stop-color="#f7689f"/>
     </linearGradient>
   </defs>
 
   <!-- 背景：铺满整方块（iOS 主屏幕会自动圆角） -->
   <rect width="512" height="512" fill="url(#bg)"/>
 
-  <!-- 双马尾 -->
-  <circle cx="136" cy="262" r="58" fill="#7a5240"/>
-  <circle cx="376" cy="262" r="58" fill="#7a5240"/>
+  <!-- 脸：圆角方形（几何、干净） -->
+  <rect x="134" y="170" width="244" height="250" rx="92" ry="92" fill="#ffffff"/>
 
-  <!-- 马尾蝴蝶结 -->
-  <g>
-    <g transform="translate(136,206)">
-      <path d="M0,0 -34,-19 -34,19Z" fill="#ff5fa2"/>
-      <path d="M0,0 34,-19 34,19Z" fill="#ff5fa2"/>
-      <circle r="11" fill="#e8478c"/>
-    </g>
-    <g transform="translate(376,206)">
-      <path d="M0,0 -34,-19 -34,19Z" fill="#ff5fa2"/>
-      <path d="M0,0 34,-19 34,19Z" fill="#ff5fa2"/>
-      <circle r="11" fill="#e8478c"/>
-    </g>
+  <!-- 顶部蝴蝶结 -->
+  <g transform="translate(256,166)">
+    <path d="M0,3 C-18,-24 -48,-18 -48,0 C-48,18 -18,22 0,-3 Z" fill="#ff4f8f"/>
+    <path d="M0,3 C18,-24 48,-18 48,0 C48,18 18,22 0,-3 Z" fill="#ff4f8f"/>
+    <circle r="12" fill="#ec3f80"/>
   </g>
 
-  <!-- 头发后层 -->
-  <ellipse cx="256" cy="244" rx="132" ry="140" fill="#7a5240"/>
-
-  <!-- 脸 -->
-  <ellipse cx="256" cy="266" rx="102" ry="108" fill="#ffe1c2"/>
-
-  <!-- 刘海 -->
-  <path d="M154,252 Q150,150 256,150 Q362,150 358,252 Q330,214 300,226 Q286,178 256,212 Q226,178 212,226 Q182,214 154,252 Z" fill="#7a5240"/>
-
   <!-- 腮红 -->
-  <g fill="#ff8db8" opacity="0.7">
-    <ellipse cx="198" cy="314" rx="20" ry="13"/>
-    <ellipse cx="314" cy="314" rx="20" ry="13"/>
+  <g fill="#ffaccd">
+    <ellipse cx="190" cy="332" rx="18" ry="11"/>
+    <ellipse cx="322" cy="332" rx="18" ry="11"/>
+  </g>
+
+  <!-- 睫毛 -->
+  <g stroke="#5a3147" stroke-width="6" stroke-linecap="round">
+    <path d="M196,272 L183,266"/>
+    <path d="M201,264 L191,255"/>
+    <path d="M316,272 L329,266"/>
+    <path d="M311,264 L321,255"/>
   </g>
 
   <!-- 眼睛 -->
-  <g fill="#3d2b22">
-    <ellipse cx="219" cy="280" rx="13" ry="17"/>
-    <ellipse cx="293" cy="280" rx="13" ry="17"/>
+  <g fill="#5a3147">
+    <ellipse cx="214" cy="294" rx="16" ry="21"/>
+    <ellipse cx="298" cy="294" rx="16" ry="21"/>
   </g>
-  <g fill="#fff">
-    <circle cx="223" cy="274" r="4.5"/>
-    <circle cx="297" cy="274" r="4.5"/>
+  <g fill="#ffffff">
+    <circle cx="220" cy="286" r="5.5"/>
+    <circle cx="304" cy="286" r="5.5"/>
   </g>
 
   <!-- 微笑 -->
-  <path d="M236,324 Q256,344 276,324" stroke="#d65b86" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <path d="M234,344 Q256,362 278,344" stroke="#c9527f" stroke-width="8" fill="none" stroke-linecap="round"/>
 </svg>
