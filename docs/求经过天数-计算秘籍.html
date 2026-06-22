@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>求经过天数 · 计算秘籍</title>
+<style>
+  @page { size: A4; margin: 14mm 14mm 12mm; }
+
+  :root{
+    --ink:#1f2937; --soft:#475569; --line:#d8dee9;
+    --amber-bg:#fff7e6; --amber-bd:#f59e0b; --amber-tx:#92400e;
+    --blue-bg:#eef5ff; --blue-bd:#3b82f6; --blue-tx:#1e40af;
+    --green-bg:#eefbf2; --green-bd:#22c55e; --green-tx:#166534;
+    --rose-bg:#fff1f2; --rose-bd:#fb7185; --rose-tx:#9f1239;
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; }
+  body{
+    font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;
+    color:var(--ink); line-height:1.55; font-size:15px;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+    background:#fff;
+  }
+  .sheet{ max-width:690px; margin:0 auto; padding:6px 4px 24px; }
+
+  /* 返回首页（打印时隐藏） */
+  .back{ display:inline-flex; align-items:center; gap:5px; text-decoration:none;
+    color:#1e40af; background:#eef5ff; border:1px solid #d6e4ff; border-radius:999px;
+    padding:5px 14px; font-size:13px; margin-bottom:12px; transition:.15s; }
+  .back:hover{ background:#dbeafe; }
+
+  /* 标题 */
+  .title{ display:flex; align-items:flex-end; justify-content:space-between;
+    border-bottom:3px solid var(--ink); padding-bottom:8px; margin-bottom:14px; gap:12px; }
+  .title h1{ font-size:25px; margin:0; letter-spacing:1px; }
+  .title .tag{ font-size:13px; color:var(--soft); white-space:nowrap; padding-bottom:3px; }
+
+  h2{ font-size:17px; margin:18px 0 8px; display:flex; align-items:center; gap:8px; }
+  h2 .dot{ width:10px; height:10px; border-radius:50%; background:var(--blue-bd); display:inline-block; }
+
+  /* 秘籍主框 */
+  .hero{ background:var(--amber-bg); border:2px solid var(--amber-bd); border-radius:14px;
+    padding:16px 18px; text-align:center; }
+  .hero .label{ color:var(--amber-tx); font-weight:700; font-size:14px; letter-spacing:3px; }
+  .formula{ font-size:27px; font-weight:800; color:var(--amber-tx); margin:10px 0 6px; }
+  .formula b{ color:#b45309; }
+  .hero .note{ font-size:13px; color:var(--soft); }
+
+  .card{ border:1.5px solid var(--line); border-radius:12px; padding:12px 15px; margin-top:10px; }
+  .card.blue{ background:var(--blue-bg); border-color:#bcd6fb; }
+  .card.green{ background:var(--green-bg); border-color:#bbe9c8; }
+  .card.rose{ background:var(--rose-bg); border-color:#fbcfd4; }
+  .card .h{ font-weight:700; margin-bottom:4px; }
+  .card.blue .h{ color:var(--blue-tx); }
+  .card.green .h{ color:var(--green-tx); }
+  .card.rose .h{ color:var(--rose-tx); }
+
+  .steps{ margin:0; padding-left:0; list-style:none; }
+  .steps li{ margin:5px 0; padding-left:26px; position:relative; }
+  .steps li::before{ content:attr(data-n); position:absolute; left:0; top:0;
+    width:19px; height:19px; border-radius:50%; background:var(--blue-bd); color:#fff;
+    font-size:12px; font-weight:700; text-align:center; line-height:19px; }
+  .calc{ font-weight:700; color:#0f766e; }
+  .ans{ display:inline-block; background:#fde68a; border-radius:6px; padding:0 8px; font-weight:800; color:#92400e; }
+
+  /* 月份表 */
+  table{ width:100%; border-collapse:collapse; margin-top:6px; font-size:14px; }
+  th,td{ border:1px solid var(--line); padding:6px 8px; text-align:center; }
+  th{ background:#f1f5f9; }
+
+  /* 练习 */
+  .practice ol{ padding-left:22px; margin:6px 0; }
+  .practice li{ margin:9px 0; }
+  .blank{ display:inline-block; min-width:64px; border-bottom:1.5px solid #94a3b8; height:1em; }
+  .answers{ font-size:12.5px; color:var(--soft); border-top:1px dashed var(--line); margin-top:14px; padding-top:8px; }
+
+  .tip{ font-size:13px; color:var(--soft); margin-top:4px; }
+  .pagebreak{ break-before:page; }
+  section{ break-inside:avoid; }
+  @media print{ .screen-only{ display:none; } }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <a class="back screen-only" href="index.html">‹ 返回秘籍本</a>
+
+  <div class="title">
+    <h1>求经过天数 · 计算秘籍</h1>
+    <div class="tag">三年级下册 · 年月日</div>
+  </div>
+
+  <section class="hero">
+    <div class="label">计 算 秘 籍</div>
+    <div class="formula">总天数 ＝ <b>最后一天</b> － <b>第一天</b> ＋ <b>1</b></div>
+    <div class="note">适用：开始和结束在 <b>同一个月</b> 里，直接套公式。</div>
+  </section>
+
+  <section>
+    <h2><span class="dot"></span>为什么要 ＋1 ？（头尾都要数进去）</h2>
+    <div class="card blue">
+      <div class="h">🖐 用上学的天数想一想</div>
+      从 <b>5 号</b> 到 <b>8 号</b> 都要上学，上了几天？掰手指：5、6、7、8 —— 一共 <b>4</b> 天。<br>
+      用秘籍：<span class="calc">8 － 5 ＋ 1 ＝ 4</span>（天）。第一天也算 1 天，所以要 <b>＋1</b>，千万别漏！
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="dot" style="background:var(--rose-bd)"></span>关键陷阱：跨月就要「分段」</h2>
+    <div class="card rose">
+      <div class="h">⚠️ 从这个月跨到下个月，不能直接减！</div>
+      办法是 <b>拆成两段</b>，每段各套一次秘籍，再加起来：<br>
+      <div style="text-align:center; font-weight:800; color:var(--rose-tx); font-size:16px; margin:8px 0;">
+        前一个月剩下的天数 ＋ 后一个月用掉的天数
+      </div>
+      <div class="tip">想知道前一个月剩几天，要先知道这个月有多少天（看下面大月小月表）。</div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="dot" style="background:var(--green-bd)"></span>例题：2026 年中伏有几天？</h2>
+    <div class="card green">
+      <div class="h">中伏：7 月 25 日 — 8 月 13 日（跨月，要分段）</div>
+      <ul class="steps">
+        <li data-n="1"><b>7 月这段：</b>7 月 25 日 → 7 月 31 日 ⟹ <span class="calc">31 － 25 ＋ 1 ＝ 7</span>（天）</li>
+        <li data-n="2"><b>8 月这段：</b>8 月 1 日 → 8 月 13 日 ⟹ <span class="calc">13 － 1 ＋ 1 ＝ 13</span>（天）</li>
+        <li data-n="3"><b>合起来：</b><span class="calc">7 ＋ 13 ＝ 20</span> ⟹ 中伏一共 <span class="ans">20 天</span></li>
+      </ul>
+      <div class="tip">✅ 检验秘籍：初伏在同一个月 24－15＋1＝<b>10</b> 天，末伏 23－14＋1＝<b>10</b> 天，正好和题目给的「初伏、末伏都是 10 天」对上，说明秘籍没记错。</div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="dot" style="background:#a855f7"></span>小工具：每个月有多少天</h2>
+    <table>
+      <tr><th>大月（31 天）</th><td>1、3、5、7、8、10、12 月</td></tr>
+      <tr><th>小月（30 天）</th><td>4、6、9、11 月</td></tr>
+      <tr><th>2 月</th><td>平年 28 天，闰年 29 天</td></tr>
+    </table>
+    <div class="tip">口诀：「七<b>上</b>八<b>下</b>」——7 月、8 月都是 31 天，是相邻的两个大月，跨月算天数时最容易记错，多留意。</div>
+  </section>
+
+  <section class="practice pagebreak">
+    <h2><span class="dot"></span>练一练（先判断是不是跨月）</h2>
+    <ol>
+      <li>同学们 5 月 8 日到 5 月 20 日参加合唱排练，一共排练了 <span class="blank"></span> 天。</li>
+      <li>国庆假期从 10 月 1 日放到 10 月 7 日，一共放 <span class="blank"></span> 天。</li>
+      <li>军军 7 月 28 日去外婆家，8 月 5 日回来，他在外婆家住了 <span class="blank"></span> 天。<span class="tip">（跨月，记得分段）</span></li>
+      <li>暑假从 7 月 5 日开始，到 8 月 31 日结束，暑假一共有 <span class="blank"></span> 天。<span class="tip">（跨月）</span></li>
+    </ol>
+    <div class="answers">
+      <b>参考答案：</b>
+      ① 20－8＋1＝<b>13</b> 天
+      ② 7－1＋1＝<b>7</b> 天
+      ③ 7月：31－28＋1＝4 天；8月：5 天；4＋5＝<b>9</b> 天
+      ④ 7月：31－5＋1＝27 天；8月：31 天；27＋31＝<b>58</b> 天
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
