@@ -11,87 +11,125 @@
 <link rel="manifest" href="site.webmanifest">
 <style>
   :root{
-    --ink:#1f2937; --soft:#64748b; --line:#e5e9f0; --bg:#f6f8fc;
-    --amber:#f59e0b; --blue:#3b82f6; --green:#22c55e;
+    --bg:#fcfbfa;
+    --ink:#3a3744; --muted:#9b97a6; --line:#efedf3; --card:#ffffff;
+
+    /* 品牌玫红 + 分类马卡龙色（柔和、轻盈） */
+    --rose:#ff6f9c; --rose-tint:#fff0f5; --rose-ink:#c8467a;
+    --sky:#5aa6f0;  --sky-tint:#ecf4fe;  --sky-ink:#2f6fc0;
+    --peach:#ff9f5c;--peach-tint:#fff3e8;--peach-ink:#c96f2c;
+    --mint:#43c8a0; --mint-tint:#e8f8f1; --mint-ink:#1f8f6e;
   }
   *{ box-sizing:border-box; }
+  html{ -webkit-text-size-adjust:100%; }
   body{
-    margin:0; background:var(--bg); color:var(--ink);
-    font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;
-    line-height:1.5;
+    margin:0; color:var(--ink);
+    font-family:ui-rounded,"SF Pro Rounded","PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
+    line-height:1.5; -webkit-font-smoothing:antialiased;
+    -webkit-tap-highlight-color:transparent;
+    background:
+      radial-gradient(130% 55% at 100% -10%, #fff0f6 0%, transparent 58%),
+      radial-gradient(115% 50% at -10% -5%, #eef4ff 0%, transparent 55%),
+      var(--bg);
+    background-attachment:fixed;
+    min-height:100vh;
   }
-  .wrap{ max-width:720px; margin:0 auto; padding:32px 18px 60px; }
+  .wrap{ max-width:580px; margin:0 auto; padding:clamp(26px,6vw,44px) clamp(16px,5vw,22px) 64px; }
 
-  header{ border-bottom:3px solid var(--ink); padding-bottom:14px; margin-bottom:8px; }
-  header .row{ display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap; }
-  header h1{ font-size:27px; margin:0; letter-spacing:1px; }
-  header .sub{ color:var(--soft); font-size:14px; }
-  .count{ color:var(--soft); font-size:13px; margin:10px 0 18px; }
-  .count b{ color:var(--amber); font-size:15px; }
+  /* ── 页眉 ── */
+  header{ display:flex; align-items:center; gap:13px; }
+  .logo{
+    flex:0 0 auto; width:50px; height:50px; border-radius:16px; display:grid; place-items:center;
+    font-size:27px; background:linear-gradient(155deg,#fff2f7,#ffe3ee);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.9), 0 6px 14px -8px rgba(255,111,156,.55);
+  }
+  header h1{ font-size:clamp(22px,5.5vw,28px); margin:0; font-weight:800; letter-spacing:.5px; }
+  header .sub{ margin:2px 0 0; color:var(--muted); font-size:13px; font-weight:600; }
+  .count{ color:var(--muted); font-size:13.5px; font-weight:600; margin:18px 2px 16px; }
+  .count b{ color:var(--rose-ink); font-weight:800; }
 
+  /* ── 卡片（每张卡片靠 --c 系列变量上色） ── */
   .list{ display:flex; flex-direction:column; gap:12px; }
-
   .card{
+    --c:var(--rose); --c-tint:var(--rose-tint); --c-ink:var(--rose-ink);
     display:flex; align-items:center; gap:14px; text-decoration:none; color:inherit;
-    background:#fff; border:1.5px solid var(--line); border-radius:14px;
-    padding:14px 16px; transition:.15s; position:relative;
+    background:var(--card); border:1px solid var(--line); border-radius:22px;
+    padding:14px 15px; position:relative;
+    box-shadow:0 5px 18px -10px rgba(58,55,68,.16);
+    transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
   }
-  .card:hover{ border-color:var(--blue); box-shadow:0 4px 16px rgba(59,130,246,.12); transform:translateY(-1px); }
+  .card.sky{ --c:var(--sky); --c-tint:var(--sky-tint); --c-ink:var(--sky-ink); }
+  .card.peach{ --c:var(--peach); --c-tint:var(--peach-tint); --c-ink:var(--peach-ink); }
+  .card.mint{ --c:var(--mint); --c-tint:var(--mint-tint); --c-ink:var(--mint-ink); }
+  .card:hover{ transform:translateY(-2px); border-color:var(--c);
+    box-shadow:0 14px 30px -14px color-mix(in srgb,var(--c) 55%,transparent); }
+  .card:active{ transform:translateY(0); }
+  .card:focus-visible{ outline:3px solid var(--c); outline-offset:3px; }
+
   .icon{
-    flex:0 0 46px; height:46px; border-radius:12px; display:flex; align-items:center; justify-content:center;
-    font-size:24px; background:#fff7e6; border:1.5px solid #ffe1a8;
+    flex:0 0 50px; width:50px; height:50px; border-radius:15px; display:grid; place-items:center;
+    font-size:25px; background:var(--c-tint);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.8);
   }
   .body{ flex:1 1 auto; min-width:0; }
-  .body .name{ font-size:18px; font-weight:700; }
-  .body .formula{ color:#b45309; font-weight:600; font-size:14px; margin-top:2px;
+  .body .name{ font-size:17.5px; font-weight:800; letter-spacing:.2px; }
+  .body .formula{ color:var(--c-ink); font-weight:600; font-size:13.5px; margin-top:3px;
     overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-  .meta{ flex:0 0 auto; text-align:right; }
-  .tag{ display:inline-block; font-size:12px; color:#1e40af; background:#eef5ff;
-    border:1px solid #d6e4ff; border-radius:999px; padding:2px 10px; }
-  .date{ display:block; color:var(--soft); font-size:12px; margin-top:6px; font-variant-numeric:tabular-nums; }
-  .arrow{ color:#cbd5e1; font-size:22px; flex:0 0 auto; margin-left:2px; }
-  .card:hover .arrow{ color:var(--blue); }
+  .meta{ flex:0 0 auto; text-align:right; display:flex; flex-direction:column; align-items:flex-end; gap:6px; }
+  .tag{ display:inline-block; font-size:11.5px; font-weight:700; color:var(--c-ink);
+    background:var(--c-tint); border-radius:999px; padding:3px 11px; white-space:nowrap; }
+  .date{ color:var(--muted); font-size:11.5px; font-variant-numeric:tabular-nums; }
+  .arrow{ flex:0 0 auto; color:#d7d4de; font-size:21px; margin-left:1px; transition:color .18s ease,transform .18s ease; }
+  .card:hover .arrow{ color:var(--c); transform:translateX(2px); }
 
-  /* 固定入口：易错字本（不在秘籍列表里，不参与排序/计数） */
-  .pinned{ margin-bottom:20px; border-color:#fbcfe0; background:#fff5f9; }
-  .pinned .icon{ background:#ffe4ef; border-color:#fbb6ce; }
-  .pinned .body .formula{ color:#be185d; }
-  .pinned:hover{ border-color:#f472b6; box-shadow:0 4px 16px rgba(244,114,182,.18); }
-  .pinned .tag{ color:#be185d; background:#ffe4ef; border-color:#fbcfe0; }
-  .pinned .arrow{ color:#f9a8d4; }
-  .pinned:hover .arrow{ color:#ec4899; }
+  /* ── 固定入口：易错字本（淡玫红卡 + ⭐ 常翻） ── */
+  .pinned{ background:linear-gradient(180deg,#fff6fa,#fff0f5); border-color:#fbdbe8; margin-bottom:18px; }
+  .pin-mark{ position:absolute; top:12px; right:14px; display:inline-flex; align-items:center; gap:3px;
+    font-size:11px; font-weight:800; color:#fff; background:var(--rose);
+    border-radius:999px; padding:3px 9px; box-shadow:0 4px 10px -4px rgba(255,111,156,.7); }
+  .pinned .meta{ display:none; }
 
-  footer{ color:#94a3b8; font-size:12px; text-align:center; margin-top:34px; }
+  footer{ color:#bdb9c6; font-size:12px; text-align:center; margin-top:36px; }
+
+  @media (max-width:430px){
+    .card{ border-radius:18px; padding:12px 13px; gap:12px; }
+    .icon{ flex-basis:44px; width:44px; height:44px; font-size:22px; }
+    .body .name{ font-size:16px; }
+    .body .formula{ font-size:12.5px; }
+    .arrow{ display:none; }
+  }
+  @media (prefers-reduced-motion:reduce){
+    .card,.arrow{ transition:none; }
+    .card:hover{ transform:none; }
+  }
 </style>
 </head>
 <body>
 <div class="wrap">
 
   <header>
-    <div class="row">
-      <h1>📒 计算秘籍本</h1>
-      <span class="sub">三年级下册 · 人教版</span>
+    <div class="logo">📒</div>
+    <div>
+      <h1>计算秘籍本</h1>
+      <p class="sub">三年级下册 · 人教版</p>
     </div>
   </header>
-  <div class="count">已收录 <b id="n">0</b> 个秘籍 · 点击卡片打开讲义</div>
+  <p class="count">已收录 <b id="n">0</b> 个秘籍 · 点一张就翻开</p>
 
-  <!-- 固定入口：易错字本（独立于下面的秘籍列表，永远置顶） -->
+  <!-- 固定入口：易错字本（独立于下面的秘籍列表，永远置顶、不计数） -->
   <a class="card pinned" href="易错字本.html">
+    <span class="pin-mark">⭐ 常翻</span>
     <div class="icon">📝</div>
     <div class="body">
       <div class="name">易错字本</div>
-      <div class="formula">答题里不会写、容易写错的字（带田字格）</div>
+      <div class="formula">不会写、爱写错的字，都收在这儿</div>
     </div>
-    <div class="meta">
-      <span class="tag">常翻</span>
-    </div>
-    <div class="arrow">›</div>
   </a>
 
   <div class="list" id="list">
 
-    <!-- ===== 一条秘籍 = 一个 <a class="card"> ===== -->
-    <a class="card" href="商中间末尾有0-计算秘籍.html" data-date="2026-06-21">
+    <!-- ===== 一条秘籍 = 一个 <a class="card 颜色"> ===== -->
+    <a class="card sky" href="商中间末尾有0-计算秘籍.html" data-date="2026-06-21">
       <div class="icon">0️⃣</div>
       <div class="body">
         <div class="name">商中间、末尾有 0</div>
@@ -104,7 +142,7 @@
       <div class="arrow">›</div>
     </a>
 
-    <a class="card" href="求经过天数-计算秘籍.html" data-date="2026-06-21">
+    <a class="card peach" href="求经过天数-计算秘籍.html" data-date="2026-06-21">
       <div class="icon">📅</div>
       <div class="body">
         <div class="name">求经过天数</div>
@@ -118,10 +156,11 @@
     </a>
 
     <!-- 复制上面整段 <a>…</a> 即可新增一个秘籍：
-         · href     改成新讲义的文件名
-         · icon     换个合适的 emoji
+         · class    在 card 后加颜色：sky / peach / mint（留空＝玫红）
+         · href     新讲义文件名
+         · icon     合适的 emoji
          · name     秘籍名称
-         · formula  一句话的核心公式（可留空）
+         · formula  一句话核心公式（可留空）
          · tag      所属单元/主题
          · date / data-date  记录日期，写成 2026-06-21 这种格式 -->
 
