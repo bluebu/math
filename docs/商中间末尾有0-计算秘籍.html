@@ -74,8 +74,8 @@
   /* 竖式（完整，未知用□占位） */
   .vwrap{ display:flex; justify-content:center; margin:8px 0 12px; }
   .vlong{ display:inline-block; }
-  .vrow{ display:grid; grid-template-columns:28px 40px 40px 40px auto; align-items:center; }
-  .vrow .lead{ text-align:right; padding-right:6px; font-size:22px; font-weight:800; line-height:38px; }
+  .vrow{ display:grid; grid-template-columns:28px 40px 40px 40px; align-items:center; position:relative; }
+  .vrow .lead{ text-align:right; padding-right:16px; font-size:22px; font-weight:800; line-height:38px; }
   .vrow .cell{ text-align:center; font-size:23px; font-weight:800; line-height:38px; height:38px; }
   .cell.q2{ color:var(--pink-tx); }            /* 已算出的商：2 */
   .qo{ color:var(--pink); font-weight:800; }   /* 商里待求的位：粉色◇ */
@@ -86,11 +86,12 @@
   /* 除号：被除数上方横线（.cell 的 border-top）+ 左侧一道带弧的撇 ⟌ */
   .vrow.dividend .lead + .cell{ position:relative; }
   .vrow.dividend .lead + .cell::before{ content:""; position:absolute;
-    left:-13px; top:-2px; width:18px; height:48px; pointer-events:none;
-    background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 48"><path d="M13 1 Q15 24 4 47" fill="none" stroke="%232b2b35" stroke-width="2.6" stroke-linecap="round"/></svg>') no-repeat; }
+    left:-13px; top:-1px; width:18px; height:34px; pointer-events:none;
+    background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 34"><path d="M13 1 Q15 17 9 33" fill="none" stroke="%232b2b35" stroke-width="2.6" stroke-linecap="round"/></svg>') no-repeat; }
   .cell.hot{ background:#fde2ef; color:var(--pink); border-radius:8px; }
   /* 竖式行末的批注（如「没有余数」） */
-  .rmk{ display:flex; align-items:center; gap:5px; padding-left:10px; font-size:13px;
+  .rmk{ position:absolute; left:100%; top:0; height:100%;
+    display:flex; align-items:center; gap:5px; padding-left:10px; font-size:13px;
     color:var(--pink); font-weight:700; white-space:nowrap; }
   .rmk .arr{ font-size:22px; line-height:1; }
   .note2{ font-size:14px; color:var(--soft); text-align:center; line-height:1.7; }
