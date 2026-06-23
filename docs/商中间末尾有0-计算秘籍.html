@@ -10,7 +10,7 @@
 <meta name="theme-color" content="#ff9ec4">
 <link rel="manifest" href="site.webmanifest">
 <style>
-  @page { size: A4; margin: 16mm; }
+  @page { size: A4; margin: 0; }
 
   :root{
     --ink:#2b2b35; --soft:#8b8b97; --line:#ededf2;
@@ -128,13 +128,32 @@
 
   .pagebreak{ break-before:page; }
   section{ break-inside:avoid; }
-  @media print{ .screen-only{ display:none; } }
+  /* 顶部一行：左「返回」右「打印」，同一行两端对齐；打印时整行随 screen-only 隐藏 */
+  .topbar{ display:flex; align-items:center; justify-content:space-between;
+    gap:12px; margin-bottom:18px; }
+  .topbar .back{ margin-bottom:0; }
+  .printbtn{ display:inline-flex; align-items:center; gap:6px; cursor:pointer;
+    border:none; color:#fff; background:var(--pink); font-family:inherit;
+    font-size:14px; font-weight:700; border-radius:999px; padding:8px 18px;
+    box-shadow:0 3px 10px rgba(236,72,153,.35); }
+  .printbtn:active{ transform:translateY(1px); }
+
+  /* 打印：把版面强制锁成整张 A4（210mm），不跟手机屏幕宽度走，
+     避免安卓 / Epson 等通道沿用移动布局再缩放 */
+  @media print{
+    html, body{ width:210mm; }
+    .sheet{ width:210mm; max-width:none; margin:0; padding:16mm 16mm 18mm; }
+    .screen-only{ display:none; }
+  }
 </style>
 </head>
 <body>
 <div class="sheet">
 
-  <a class="back screen-only" href="index.html">‹ 返回秘籍本</a>
+  <div class="topbar screen-only">
+    <a class="back" href="index.html">‹ 返回秘籍本</a>
+    <button class="printbtn" type="button" onclick="window.print()">🖨️ 打印 A4</button>
+  </div>
 
   <h1>商中间、末尾有 0</h1>
   <div class="sub">除法竖式 · 计算秘籍</div>
