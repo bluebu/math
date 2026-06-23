@@ -83,7 +83,11 @@
   .cell.dim{ color:#c7c7d2; }                  /* 中间还算不出的占位：灰色◇ */
   .cell.u{ border-bottom:2px solid #b9b9c4; }  /* 减数下的横线 */
   .vrow.dividend .cell{ border-top:2.5px solid var(--ink); }
-  .vrow.dividend .cell:first-child{ border-left:2.5px solid var(--ink); }
+  /* 除号：被除数上方横线（.cell 的 border-top）+ 左侧一道带弧的撇 ⟌ */
+  .vrow.dividend .lead + .cell{ position:relative; }
+  .vrow.dividend .lead + .cell::before{ content:""; position:absolute;
+    left:-13px; top:-2px; width:18px; height:48px; pointer-events:none;
+    background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 48"><path d="M13 1 Q15 24 4 47" fill="none" stroke="%232b2b35" stroke-width="2.6" stroke-linecap="round"/></svg>') no-repeat; }
   .cell.hot{ background:#fde2ef; color:var(--pink); border-radius:8px; }
   /* 竖式行末的批注（如「没有余数」） */
   .rmk{ display:flex; align-items:center; gap:5px; padding-left:10px; font-size:13px;
