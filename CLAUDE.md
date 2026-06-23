@@ -25,7 +25,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## 新建一个秘籍讲义
 
 1. 从 `原始题集` / `错题集` 的真题里确定题型与对应「秘籍」。
-2. 在 `docs/` 下新建讲义 HTML（A4 打印友好：`@page size:A4`、`print-color-adjust:exact`、系统中文字体；结构：秘籍公式框 + 生活化「为什么」 + 易错点 + 真题例题 + 小工具 + 练一练带答案；顶部加「‹ 返回秘籍本」`back screen-only` 链接；`<head>` 复制现有讲义的 favicon / apple-touch-icon / manifest 那组标签）。
+2. 在 `docs/` 下新建讲义 HTML（A4 打印友好：`@page size:A4`、`print-color-adjust:exact`、系统中文字体；结构：秘籍公式框 + 生活化「为什么」 + 易错点 + 真题例题 + 小工具 + 练一练带答案；顶部放一行 `.topbar screen-only`：左「‹ 返回秘籍本」`back`、右「🖨️ 打印 A4」`printbtn`（`onclick="window.print()"`）；`<head>` 复制现有讲义的 favicon / apple-touch-icon / manifest 那组标签）。
+   - **打印锁 A4**：用 `@page { size:A4; margin:0 }`，并在 `@media print` 里 `html,body{ width:210mm }`、`.sheet{ width:210mm; max-width:none; padding:..mm }`（边距用 mm 写在 `.sheet`）。否则移动端 / Epson 等会沿用手机屏幕窄宽度排版再缩放，打印出来是「移动布局」。
+   - **永不被搜索引擎录入**：`<head>` 必须加 `<meta name="robots" content="noindex, nofollow, noarchive">`（全站约定，新页面别漏；勿用 robots.txt `Disallow` 屏蔽，否则爬虫读不到 noindex）。
 3. 在 `docs/index.html` 复制卡片模板新增一行（href、emoji、名称、公式、单元标签、记录日期 `data-date`）。
 4. 用 `open <文件>` 在浏览器预览。
 
